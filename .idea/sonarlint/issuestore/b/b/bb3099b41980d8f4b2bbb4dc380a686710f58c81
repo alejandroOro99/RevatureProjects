@@ -1,0 +1,7 @@
+
+W
+java:S1118":Add a private constructor to hide the implicit public one.(® ©ş8ªâ‡Š/
+M
+java:S1444"0Make this "public static connection" field final(ıØÕá8ªâ‡Š/
+s
+java:S1104"VMake connection a static final constant or non-public and provide accessors if needed.(ıØÕá8ªâ‡Š/
