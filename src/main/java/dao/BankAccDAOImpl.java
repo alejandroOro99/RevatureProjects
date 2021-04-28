@@ -4,7 +4,6 @@ import db_connection.DBConnection;
 import org.apache.log4j.Logger;
 import structures.BankAccount;
 import structures.Customer;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -67,5 +66,53 @@ public class BankAccDAOImpl implements BankAccDAO{
         }
 
         return null;
+    }
+
+    @Override
+    public void getStatusZeroAccounts(Customer customer) {
+
+        try(Connection connection = DBConnection.getConnection()){
+
+            String sql = "SELECT name FROM \"BankApp\".bankaccounts WHERE status = 0 AND bankaccid=?";
+            PreparedStatement acceptAccSQL = connection.prepareStatement(sql);
+            acceptAccSQL.setLong(1,customer.getBankAccId());
+            ResultSet resultSet = acceptAccSQL.executeQuery();
+
+            while(resultSet.next()){
+                log.debug(resultSet.getString("name"));
+            }
+
+        }catch(Exception e){
+            log.debug(e);
+        }
+    }
+
+    @Override
+    public void acceptAccounts(String name, Customer customer) {
+
+        String[] accNames = name.split(" ");//split based on spaces
+        try(Connection connection = DBConnection.getConnection()){
+            String sql = "UPDATE \"BankApp\".bankaccounts SET status = 1 WHERE name=? AND bankaccid=?";
+            String sqlDelete = "DELETE FROM \"BankApp\".bankaccounts WHERE status = 0 AND bankaccid = ?";
+
+            PreparedStatement acceptAccountsSQL = connection.prepareStatement(sql);
+
+            for(String namesOfAccs : accNames){
+                acceptAccountsSQL.setString(1,namesOfAccs);
+                acceptAccountsSQL.setLong(2,customer.getBankAccId());
+
+                acceptAccountsSQL.executeUpdate();
+
+            }
+
+            PreparedStatement deleteAccSQL = connection.prepareStatement(sqlDelete);
+            deleteAccSQL.setLong(1,customer.getBankAccId());
+            deleteAccSQL.executeUpdate();
+
+
+        }catch(SQLException e){
+            log.debug(e);
+        }
+
     }
 }

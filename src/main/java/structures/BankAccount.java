@@ -3,17 +3,17 @@ package structures;
 public class BankAccount {
 
     private long bankAccId;
-    private long balance;
+    private double balance;
     private String name;
     private int status;
 
-    public BankAccount(long bankAccId, long balance, String name) {
+    public BankAccount(long bankAccId, double balance, String name) {
         this.bankAccId = bankAccId;
         this.balance = balance;
         this.name = name;
     }
 
-    public BankAccount(long bankAccId, long balance) {
+    public BankAccount(long bankAccId, double balance) {
         this.bankAccId = bankAccId;
         this.balance = balance;
     }
@@ -50,11 +50,11 @@ public class BankAccount {
         this.bankAccId = bankAccId;
     }
 
-    public long getBalance() {
+    public double getBalance() {
         return balance;
     }
 
-    public void setBalance(long balance) {
+    public void setBalance(double balance) {
         this.balance = balance;
     }
 }

@@ -1,17 +1,21 @@
 package dao;
 
+import exception.ServiceException;
 import structures.*;
 
 import java.util.List;
 
 public interface CustomerDAO {
-   boolean applyCustomerAcc(String firstname, String lastname, String username, String password, long balance);
+   boolean applyCustomerAcc(String firstname, String lastname, String username, String password);
    Customer login(String username, String password);
-   long viewAccBalance(String bankAccount);
-   boolean applyBankAcc(String name, long balance , Customer customer);
-   boolean postTransfer();
-   List<BankAccount> viewAllAcc(Customer customer);
-   boolean acceptTransfer();
-   boolean deposit(String name, long amount, Customer customer);
-   boolean withdraw();
+   double viewAccBalance(String bankAccount);
+   boolean applyBankAcc(String name, double balance , Customer customer);
+   void postTransfer(Customer sender, Customer recipient, double amount, String senderName);
+   boolean acceptTransfer(Customer recipient, String accountName, String acceptedAccount);
+   boolean deposit(String name, double amount, Customer customer);
+   void withdraw(String name, Customer customer, double amount) throws ServiceException;
+   Customer getCustomerByUsername(String username);
+   void displayCustomerByTransfer(Customer customer);
+   boolean checkAccStatus(Customer customer, String account);
+   boolean isUsernameAvailable(String username);
 }
