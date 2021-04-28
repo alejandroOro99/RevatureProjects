@@ -29,7 +29,7 @@ public class Main {
     private static Scanner scanner = new Scanner(System.in);
     private static final Logger transactions = Logger.getLogger("transactionsLogger");
     private static File file = new File(
-            "C:\\Users\\aleja\\IdeaProjects\\Project_Zero\\transactions.log");
+            "transactions.log");
     private static Scanner fileScanner;
 
     static {
